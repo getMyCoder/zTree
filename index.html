@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> ZTREE DEMO - left_menu for Outlook</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="css/zTreeSelf.css" type="text/css">
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
+	<SCRIPT type="text/javascript">	 
+		var curMenu = null, zTree_Menu = null;
+		var setting = {
+			view: {
+				showLine: false,
+				showIcon: false,
+				selectedMulti: false,
+				dblClickExpand: false,
+				addDiyDom: addDiyDom
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick
+			}
+		};
+
+		var zNodes =[
+			{ id:1, pId:0, name:"文件夹", open:true},
+			{ id:11, pId:1, name:"收件箱",open:true},
+			{ id:111, pId:11, name:"收件箱1",open:true},
+			{ id:112, pId:111, name:"收件箱2",open:true},
+			{ id:116, pId:111, name:"收件箱2",open:true},
+			{ id:113, pId:112, name:"收件箱3",open:true},
+			{ id:114, pId:113, name:"收件箱4",open:true},
+			{ id:115, pId:113, name:"收件箱4",open:true},
+			{ id:12, pId:1, name:"垃圾邮件",open:true},			
+			{ id:121, pId:12, name:"垃圾邮件s",open:true},
+			{ id:122, pId:121, name:"垃圾邮件s",open:true}, 
+//			{ id:13, pId:1, name:"草稿",open:true},
+//			{ id:14, pId:1, name:"已发送邮件",open:true},
+//			{ id:15, pId:1, name:"已删除邮件",open:true},
+			{ id:3, pId:0, name:"快速视图",open:true},
+			{ id:31, pId:3, name:"文档",open:true},
+			{ id:32, pId:3, name:"照片",open:true}
+		];
+
+		function addDiyDom(treeId, treeNode) {
+			var spaceWidth = 5;
+			var switchObj = $("#" + treeNode.tId + "_switch"),
+			icoObj = $("#" + treeNode.tId + "_ico");
+			switchObj.remove();
+			icoObj.before(switchObj);
+
+			if (treeNode.level > 1) {
+				var spaceStr = "<span class='addSelect' date='false'></span>";
+				switchObj.before(spaceStr);
+			}
+			if($("#treeDemo li a.level0").find('.addSelect').length==0){
+				$("#treeDemo li a.level0").append("<span class='addSelect' date='false'></span>")	
+			}
+			if($("#treeDemo li a.level1").find('.addSelect').length==0){
+				$("#treeDemo li a.level1").append("<span class='addSelect' date='false'></span>")	
+			}
+			 
+
+		}
+
+		function beforeClick(treeId, treeNode) {
+			if (treeNode.level == 0 ) {
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+				zTree.expandNode(treeNode);
+				return false;
+			}
+			return true;
+		}
+
+		$(document).ready(function(){
+			var treeObj = $("#treeDemo");
+			$.fn.zTree.init(treeObj, setting, zNodes);
+			zTree_Menu = $.fn.zTree.getZTreeObj("treeDemo");
+			curMenu = zTree_Menu.getNodes()[0].children[0].children[0];
+			zTree_Menu.selectNode(curMenu);
+		});
+ 
+	</SCRIPT>
+
+	<script type="text/javascript">
+//		自定义
+		$(function(){			
+//			 console.log($("#treeDemo li a.level0").find('.addSelect'))
+            var numSize=5;  //层级数
+//	 		$(".ztree li").find("a").append("<span class='addSelect' date='false'></span>")             
+//	 		var _index=true;
+	 		$(".ztree .addSelect").each(function(index){	
+	 			var _this=$(this)
+            	$(this).click(function(ide){
+//          		整体（包括子级、父级）
+                   getSiblings(_this)                     
+            	})
+            	
+            	$("#treeDemo li a.level0").find(".addSelect").click(function(){
+		 			getSiblings(this)
+		 			 return false
+				})            	
+          })
+	 		function getSiblings(_this){
+			 if($(_this).attr("date")=='false'){
+	            	$(_this).parent().parent().find(".addSelect").addClass('clickSelect').attr("date",'true');
+					for (var j=0;j<=numSize;j++) {
+	                	$(_this).parents("li.level"+j).find("a").eq(0).find(".addSelect").addClass('clickSelect').attr("date",'true');
+	                }
+	            }else{                    	
+	            	$(_this).parent().parent().find(".addSelect").removeClass('clickSelect').attr("date",'false');
+	            	for (var j=numSize;j>=0;j--) {
+	                	$(_this).parents("li.level"+j).find("a").eq(0).find(".addSelect").removeClass('clickSelect').attr("date",'false');	                    	
+	                	if($(_this).parents("li.level"+j).siblings().find("a").eq(0).find(".addSelect").attr("date")=='true'){
+							return;
+	                    }
+	                }
+	            } 
+	 		}
+		})
+	</script>
+ </HEAD>
+<BODY> 
+<div class="content_wrap" style="background: #fbf3e3;padding: 15px;margin: 15px;">
+	<div class="zTreeDemoBackground left">
+		<ul id="treeDemo" class="ztree showIcon"></ul>
+	</div> 
+</div>
+</BODY>
+</HTML>

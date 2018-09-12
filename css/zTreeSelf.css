@@ -1,0 +1,34 @@
+*{margin: 0;padding: 0;}
+.ztree * {font-size: 10pt;font-family:"Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial;}
+.ztree li ul{ margin:0; padding:0}
+.ztree li {line-height:44px;}
+.ztree li a { height:44px;padding-top: 0px;color: #3d2c19;}
+.ztree li a:hover {text-decoration:none; background:#ece5d6}
+.ztree li a span.button.switch {visibility:hidden}
+.ztree.showIcon li a span.button.switch {visibility:visible}
+.ztree li a.curSelectedNode {background-color:#D4D4D4;border:0;height:44px;}
+.ztree li span {line-height:44px;}
+.ztree li span.button {margin-top: -7px;}
+.ztree li span.button.switch {width: 16px;height: 16px;}
+.ztree li a.level0 span {/*font-size: 150%;*/font-weight: bold;}
+.ztree li span.button {background-image:url("../images/left_menuForOutLook.png"); *background-image:url("../images/left_menuForOutLook.gif")}
+.ztree li span.button.switch.level0 {width: 20px; height:20px}
+.ztree li span.button.switch.level1 {width: 20px; height:20px}
+.ztree li span.button.noline_open {background-position: 0 0;}
+.ztree li span.button.noline_close {background-position: -18px 0;}
+.ztree li span.button.noline_open.level0 {background-position: 0 -18px;}
+.ztree li span.button.noline_close.level0 {background-position: -18px -18px;}
+
+/*自定义*/
+.content_wrap{padding:0 10px 5px;}
+.ztree li{border-radius: 5px;overflow: hidden;margin: 5px 0 0 0; }
+.ztree li a {font-size: 16px ;font-weight: bold ;border-radius: 5px;background:#ece5d6;display: block;position: relative;}
+.ztree li span{font-size: 16px ;font-weight: bold ;}
+.ztree li a.curSelectedNode{background:#ece5d6}
+.ztree li span.button{float: right;}
+.node_name{padding-left: 45px;float: left;}
+.level1,.level2,.level3,.level4,.level5{margin-left: 22px !important;overflow: hidden;}
+.noline_open{margin: 15px 18px 0 -10px !important; width: 20px !important;height: 20px !important;}
+.noline_close{margin: 15px 18px 0 -10px !important;width: 20px !important;height: 20px !important;}
+.addSelect{display: block;width: 20px;height: 20px;position: absolute;top: 12px;left: 14px;background: url(../images/click_b.png) no-repeat center center;}
+.clickSelect{background: url(../images/click_a.png) no-repeat center center;}
